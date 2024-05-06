@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang= "es"
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<form action=""method=POST">
+<h1>Registro de Prodcto</h1>
+<label>ID:</label>
+<input type="text" name="id"><br>
+<label>Nombre del Producto:</label>
+<input type="text" name="nombre"><br>
+<label>precio:</label>
+<input type="text" name="precio"><br> <br>
+<input type="text" name="insertar" value="INSERTAR">
+<input type="text" name="consultar"value="CONSULTAR">
+<input type="text" name="actualizar"value="ACTUALIZAR">
+<input type="text" name="eliminar" value="ELIMINAR"><br> <hr>
+<?php
+$conexion=new mysqli('LOCALHOST','root','','tienda');
+$id=$_POST['id'];
+$nombre=$_POST['nombre'];
+$precio=$_POST['precio'];
+
+if(isset($_POST['insertar'])){
+$insertar="INSERT INTO producto(nombre,precio) VALUES('$nombre','$precio')";
+$sql=mysqli_query($conexion, $insertar);
+}
+if(isset($_POST['consultar'])){
+$consultar="SELECT * FROM producto";
+$sql=mysqli_query($conexion,$consultar);
+while ($ver=mysqli_fetch_array($sql)) {
+echo "<br>";
+echo $ver['id];
+echo" ";
+echo $ver['nombre'];
+echo"$";
+echo $ver['precio'];
+echo "<br><hr>";
+}
+}
+if(isset($_POST['actualizar'])){
+$actualizar="UPDATE producto SET nombre='$nombre',precio='$precio'WHERE id='$id
+'";
+$sql=mysqli_query($conexion,$actualizar);
+}
+if(isset($_POST['eliminar'])){
+$eliminar="DELETE FROM producto WHERE id='$id'";
+$sql=mysql_query($conexion,$eliminar);
+}
+
+?>
+</form>
+</body>
+</html>
